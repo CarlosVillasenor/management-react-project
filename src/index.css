@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply px-4 py-2  rounded-md  
+  }
+
+  .btn-primary {
+    @apply bg-stone-700 text-stone-400 hover:bg-stone-600 hover:text-stone-100
+  }
+}
