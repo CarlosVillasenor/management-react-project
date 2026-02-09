@@ -1,11 +1,12 @@
 // A component that allows the user to create a new task.
 // It has an input field for the user to enter the task and a button to add the task.
-// The component uses state to keep track of the entered task and calls the 'onAdd' function passed 
-// as a prop when the user clicks the add button.
 
 import { useState } from 'react';
+import { useContext } from 'react';
+import { ProjectsContext } from '../store/projects-store.jsx';
 
-export default function NewTask({ onAdd }) {
+export default function NewTask() {
+  const { addTask } = useContext(ProjectsContext);
   const [enteredTask, setEnteredTask] = useState('');
 
   // Function to handle input change
@@ -21,7 +22,7 @@ export default function NewTask({ onAdd }) {
       return;
     }
 
-    onAdd(enteredTask);
+    addTask(enteredTask);
     setEnteredTask('');
   }
 

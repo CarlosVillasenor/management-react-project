@@ -3,6 +3,7 @@ import ProjectsSidebar from "../src/components/ProjectsSidebar";
 import NewProject from "./components/NewProject";
 import NoProjectSelected from "./components/NoProjectSelected";
 import SelectedProject from "./components/SelectedProject";
+import { ProjectsContext } from "./store/projects-store.jsx";
 
 // The main App component that manages the state of the projects and tasks.
 // It uses the ProjectsSidebar component to show the list of projects and allow the user to select 
@@ -20,7 +21,7 @@ function App() {
   });
 
   // Function to handle starting to add a new project
-  function handleStarAddProject(newProject) {
+  function handleStarAddProject() {
     setProjectsState((prevState) => {
       return {
         ...prevState,
@@ -121,14 +122,20 @@ function App() {
     content = 
     <SelectedProject
       project={currentSelectedProject} 
-      onDeleteProject={handleDeleteProject} 
-      onAddTask={handleAddTask}
+      onDeleteProject={handleDeleteProject}
       onDeleteTask={handleDeleteTask}
       tasks={projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId)}
     />;
   }
 
+  const ctxValue = {
+    tasks: projectsState.tasks,
+    addTask: handleAddTask,
+    deleteTask: handleDeleteTask
+  };
+
   return (
+    <ProjectsContext.Provider value={ctxValue}>
     <main className="h-screen my-8 flex gap-8">
       <ProjectsSidebar
         onSelectProject={handleSelectProject}
@@ -138,6 +145,7 @@ function App() {
       />
       {content}
     </main>
+    </ProjectsContext.Provider>
   );
 }
 

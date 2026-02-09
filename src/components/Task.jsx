@@ -3,15 +3,20 @@
 // delete a task. It formats the due date and displays the project title, description, and tasks. 
 // It also includes a button to delete the project and a section to add new tasks.
 
+import { useContext } from 'react';
 import NewTask from './NewTask.jsx';
+import { ProjectsContext } from '../store/projects-store.jsx'
 
-function Tasks({ tasks, onAdd, onDelete }) {
+function Tasks({ onDelete }) {
+  // Consume the tasks from the ProjectsContext
+  const { tasks } = useContext(ProjectsContext);
+
   return (
     <section>
       <h2 className="text-2xl font-bold text-stone-700 mb-4">
         Tasks
       </h2>
-      <NewTask onAdd={onAdd} />
+      <NewTask />
       {/* Show message if no tasks are present */}
       {tasks.length === 0 && (
         <p className="text-stone-800 my-4">

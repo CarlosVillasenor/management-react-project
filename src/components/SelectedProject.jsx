@@ -6,7 +6,6 @@ import Tasks from "./Task";
 function SelectedProject({
   project,
   onDeleteProject,
-  onAddTask,
   onDeleteTask,
   tasks
 }) {
@@ -39,7 +38,7 @@ function SelectedProject({
           {project.description}
         </p>
       </header>
-      <Tasks onAdd={onAddTask} onDelete={onDeleteTask} tasks={tasks} />
+      <Tasks onDelete={onDeleteTask} tasks={tasks} />
     </div>
   );
 }
