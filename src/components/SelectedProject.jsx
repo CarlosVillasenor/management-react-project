@@ -2,15 +2,14 @@
 // due date, and tasks. It also allows the user to delete the project or add and delete tasks.
 
 import Tasks from "./Task";
+import { useContext } from "react";
+import { ProjectsContext } from "../store/projects-store.jsx";
 
-function SelectedProject({
-  project,
-  onDeleteProject,
-  onDeleteTask,
-  tasks
-}) {
+function SelectedProject() {
+  const { currentSelectedProject, deleteProject } = useContext(ProjectsContext);
+
   // Format the due date.
-  const formattedDate = new Date(project.dueDate)
+  const formattedDate = new Date(currentSelectedProject.dueDate)
     // .toLocaleDateString formats as this example: 15 June, 2026
     .toLocaleDateString('en-GB', {
       year: 'numeric',
@@ -23,10 +22,10 @@ function SelectedProject({
       <header className="pb-4 mb-4 border-b-2 border-stone-300">
         <div className="flex items-center justify-between">
           <h1 className="text-3xl font-bold text-stone-600 mb-2">
-            {project.title}
+            {currentSelectedProject.title}
           </h1>
           <button
-            onClick={onDeleteProject}
+            onClick={deleteProject}
             className="text-stone-600 hover:text-stone-950"
           >
             Delete
@@ -35,10 +34,10 @@ function SelectedProject({
         <p className="mb-4 text-stone-400">{formattedDate}</p>
         {/* Preserve whitespace and line breaks in description */}
         <p className="text-stone-600 whitespace-pre-wrap">
-          {project.description}
+          {currentSelectedProject.description}
         </p>
       </header>
-      <Tasks onDelete={onDeleteTask} tasks={tasks} />
+      <Tasks />
     </div>
   );
 }

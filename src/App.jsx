@@ -98,7 +98,7 @@ function App() {
     setProjectsState((prevState) => {
       // Filter out the task to be deleted
       const updatedTasks = prevState.tasks.filter(
-        (task) => task.id !== taskId);  
+        (task) => task.id !== taskId);
 
       return {
         ...prevState,
@@ -108,43 +108,42 @@ function App() {
   }
 
   // Find the selected project based on the selectedProjectId
-  const currentSelectedProject = projectsState.projects.find(
-    (project) => project.id === projectsState.selectedProjectId);
+  const currentSelectedProject = projectsState.projects.
+  find((project) => project.id === projectsState.selectedProjectId);
 
   // Determine what to render in the main content area
   let content;
 
   if (projectsState.selectedProjectId === null) {
-    content = <NewProject onAddProject={handleAddProject} />;
+    content = <NewProject />;
   } else if (projectsState.selectedProjectId === undefined) {
-    content = <NoProjectSelected onStartAddProject={handleStarAddProject} />;
+    content = <NoProjectSelected />;
   } else {
-    content = 
-    <SelectedProject
-      project={currentSelectedProject} 
-      onDeleteProject={handleDeleteProject}
-      onDeleteTask={handleDeleteTask}
-      tasks={projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId)}
-    />;
+    content =
+      <SelectedProject
+        project={currentSelectedProject}
+      />;
   }
 
   const ctxValue = {
-    tasks: projectsState.tasks,
+    projects: projectsState.projects,
+    selectedProjectId: projectsState.selectedProjectId,
+    currentSelectedProject: currentSelectedProject,
+    tasks: projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId),
     addTask: handleAddTask,
-    deleteTask: handleDeleteTask
+    deleteTask: handleDeleteTask,
+    addProject: handleAddProject,
+    deleteProject: handleDeleteProject,
+    startAddProject: handleStarAddProject,
+    selectProject: handleSelectProject
   };
 
   return (
     <ProjectsContext.Provider value={ctxValue}>
-    <main className="h-screen my-8 flex gap-8">
-      <ProjectsSidebar
-        onSelectProject={handleSelectProject}
-        onStartAddProject={handleStarAddProject}
-        projects={projectsState.projects}
-        selectedProjectId={projectsState.selectedProjectId}
-      />
-      {content}
-    </main>
+      <main className="h-screen my-8 flex gap-8">
+        <ProjectsSidebar />
+        {content}
+      </main>
     </ProjectsContext.Provider>
   );
 }

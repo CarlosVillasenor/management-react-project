@@ -7,9 +7,9 @@ import { useContext } from 'react';
 import NewTask from './NewTask.jsx';
 import { ProjectsContext } from '../store/projects-store.jsx'
 
-function Tasks({ onDelete }) {
+function Tasks() {
   // Consume the tasks from the ProjectsContext
-  const { tasks } = useContext(ProjectsContext);
+  const { tasks, deleteTask } = useContext(ProjectsContext);
 
   return (
     <section>
@@ -31,7 +31,7 @@ function Tasks({ onDelete }) {
               <span>{task.text}</span>
               <button
                 className="text-stone-700 hover:text-red-500"
-                onClick={() => onDelete(task.id)}
+                onClick={() => deleteTask(task.id)}
               >
                 Clear
               </button>

@@ -6,13 +6,15 @@
 import Input from "./Input";
 import Button from "./Button";
 import Modal from "./Modal";
-import { useRef } from "react";
+import { useRef, useContext } from "react";
+import { ProjectsContext } from "../store/projects-store.jsx";
 
-function NewProject({ onAddProject }) {
+function NewProject() {
   const titleRef = useRef();
   const descriptionRef = useRef();
   const dueDateRef = useRef();
   const modalRef = useRef();
+  const { addProject } = useContext(ProjectsContext);
 
   function handleSaveNewProject(event) {
     event.preventDefault();
@@ -30,7 +32,7 @@ function NewProject({ onAddProject }) {
     }
 
     // Pass the new project data to the parent component.
-    onAddProject({
+    addProject({
       title: enteredTitle,
       description: enteredDescription,
       dueDate: enteredDueDate

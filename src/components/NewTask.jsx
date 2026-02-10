@@ -6,6 +6,7 @@ import { useContext } from 'react';
 import { ProjectsContext } from '../store/projects-store.jsx';
 
 export default function NewTask() {
+  // Get the addTask function from the ProjectsContext
   const { addTask } = useContext(ProjectsContext);
   const [enteredTask, setEnteredTask] = useState('');
 

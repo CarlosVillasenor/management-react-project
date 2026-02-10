@@ -8,15 +8,18 @@
 import { createContext } from "react";
 
 const ProjectsContext = createContext({
-    // Currently selected project id
-    selectedProjectId: undefined,
-    // List of all projects
-    projects: [],
-    // List of all tasks
-    tasks: [],
-    addTaks: () => {},
-    deleteTask: () => {}
+  // Currently selected project id
+  selectedProjectId: undefined,
+  // List of all projects
+  projects: [],
+  // List of all tasks
+  tasks: [],
+  addTaks: () => { },
+  deleteTask: () => { },
+  addProject: () => { },
+  deleteProject: () => { },
+  startAddProject: () => { },
+  selectProject: () => { }
 });
 
-
-export { ProjectsContext };
+export {ProjectsContext};

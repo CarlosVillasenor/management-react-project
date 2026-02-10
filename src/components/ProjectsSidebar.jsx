@@ -1,18 +1,17 @@
 // A sidebar component that shows the user's projects and allows them to select a project or add a 
 // new project. It receives the list of projects, the selected project id, and the functions to 
 // select a project and start adding a new project as props.
+import { useContext } from 'react';
+import { ProjectsContext } from '../store/projects-store.jsx';
 
-function ProjectsSidebar({
-  onStartAddProject,
-  projects,
-  onSelectProject,
-  selectedProjectId
-}) {
+function ProjectsSidebar() {
+  const { startAddProject, selectProject, projects, selectedProjectId } = useContext(ProjectsContext);
+
   return (
     <aside className="w-1/3 px-8 py-16 bg-gray-600 text-stone-50 md:w-72 rounded-r-md">
       <h2 className="mb-8 font-bold uppercase md:tex-xl text-stone-200">Your Projects</h2>
       <div>
-        <button className="btn btn-primary" onClick={onStartAddProject}>
+        <button className="btn btn-primary" onClick={startAddProject}>
           + Add Project
         </button>
       </div>
@@ -31,7 +30,7 @@ function ProjectsSidebar({
             <li key={project.id}>
               <button
                 className={cssClasses}
-                onClick={() => onSelectProject(project.id)}
+                onClick={() => selectProject(project.id)}
               >
                 {project.title}
               </button>
