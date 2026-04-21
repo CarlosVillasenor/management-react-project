@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useContext } from 'react';
-import { ProjectsContext } from '../store/projects-store.jsx';
+import { ProjectsContext } from '../store/projects-store.tsx';
 
 export default function NewTask() {
   // Get the addTask function from the ProjectsContext

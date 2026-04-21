@@ -3,7 +3,7 @@
 
 import Tasks from "./Task";
 import { useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.jsx";
+import { ProjectsContext } from "../store/projects-store.tsx";
 
 function SelectedProject() {
   const { currentSelectedProject, deleteProject } = useContext(ProjectsContext);

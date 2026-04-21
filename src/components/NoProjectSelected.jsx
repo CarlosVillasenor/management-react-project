@@ -3,7 +3,7 @@
 
 import NoProjectImage from "../assets/no-projects.png";
 import { useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.jsx";
+import { ProjectsContext } from "../store/projects-store.tsx";
 
 function NoProjectSelected() {
   const { startAddProject } = useContext(ProjectsContext);

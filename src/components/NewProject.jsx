@@ -7,7 +7,7 @@ import Input from "./Input";
 import Button from "./Button";
 import Modal from "./Modal";
 import { useRef, useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.jsx";
+import { ProjectsContext } from "../store/projects-store.tsx";
 
 function NewProject() {
   const titleRef = useRef();

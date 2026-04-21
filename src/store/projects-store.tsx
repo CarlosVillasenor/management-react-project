@@ -6,15 +6,19 @@
 // The Task component should directly consume the tasks
 
 import { createContext, useReducer } from "react";
+import type { Props, ProjectData, TaskData, ContextValue, ProjectsState, ProjectsAction } from "./store.types.js";
 
-export const ProjectsContext = createContext({
-  // Currently selected project id
-  selectedProjectId: undefined,
+export const ProjectsContext = createContext<ContextValue>({
   // List of all projects
   projects: [],
+  // Currently selected project id
+  selectedProjectId: undefined,
+  // Currently selected project
+  currentSelectedProject: undefined,
   // List of all tasks
   tasks: [],
-  addTaks: () => { },
+  // Action functions (will be implemented in the provider)
+  addTask: () => { },
   deleteTask: () => { },
   addProject: () => { },
   deleteProject: () => { },
@@ -22,7 +26,8 @@ export const ProjectsContext = createContext({
   selectProject: () => { }
 });
 
-function projectsReducer(state, action) {
+// Reducer function to manage the state of projects and tasks
+function projectsReducer(state: ProjectsState, action: ProjectsAction): ProjectsState {
   const identifier = action.identifier;
 
   switch (identifier) {
@@ -54,7 +59,7 @@ function projectsReducer(state, action) {
     case "DELETE_PROJECT":
       const updatedProjects = state.projects.filter(
         // Remove the project with the selectedProjectId
-        (project) => project.id !== state.selectedProjectId
+        (project: ProjectData) => project.id !== state.selectedProjectId
       );
 
       return {
@@ -82,7 +87,7 @@ function projectsReducer(state, action) {
     case "DELETE_TASK":
       const taskIdToDelete = action.payload.id;
       const filteredTasks = state.tasks.filter(
-        (task) => task.id !== taskIdToDelete
+        (task: TaskData) => task.id !== taskIdToDelete
       );
 
       return {
@@ -95,7 +100,8 @@ function projectsReducer(state, action) {
   }
 }
 
-export default function ProjectsContextProvider({ children }) {
+// Context provider component to wrap the application and provide the projects context
+export default function ProjectsContextProvider({ children }: Props): JSX.Element {
   const [projectsState, projectsDispatch] = useReducer(
     projectsReducer,
     // Initial state
@@ -117,7 +123,7 @@ export default function ProjectsContextProvider({ children }) {
   }
 
   // Function to handle selecting a project
-  function handleSelectProject(projectId) {
+  function handleSelectProject(projectId: string | null) {
     projectsDispatch({
       identifier: 'SELECT_PROJECT',
       payload: {
@@ -127,7 +133,7 @@ export default function ProjectsContextProvider({ children }) {
   }
 
   // Function to handle adding a new project
-  function handleAddProject(projectData) {
+  function handleAddProject(projectData: ProjectData) {
     projectsDispatch({
       identifier: 'ADD_PROJECT',
       payload: {
@@ -149,7 +155,7 @@ export default function ProjectsContextProvider({ children }) {
   }
 
   // Function to handle adding a new task
-  function handleAddTask(taskText) {
+  function handleAddTask(taskText: string) {
     projectsDispatch({
       identifier: 'ADD_TASK',
       payload: {
@@ -159,7 +165,7 @@ export default function ProjectsContextProvider({ children }) {
   }
 
   // Function to handle deleting a task
-  function handleDeleteTask(taskId) {
+  function handleDeleteTask(taskId: string) {
     projectsDispatch({
       identifier: 'DELETE_TASK',
       payload: {
@@ -168,14 +174,15 @@ export default function ProjectsContextProvider({ children }) {
     });
   }
 
-  const currentSelectedProject = projectsState.projects.find((project) => project.id === projectsState.selectedProjectId);
+  const currentSelectedProject = projectsState.projects.find((project: ProjectData) => project.id === projectsState.selectedProjectId);
+  const currentSelectedProjectTasks = projectsState.tasks.filter((task: TaskData) => task.projectId === projectsState.selectedProjectId);
 
   // Prepare the context value to be provided to consuming components
-  const ctxValue = {
+  const ctxValue: ContextValue = {
     projects: projectsState.projects,
     selectedProjectId: projectsState.selectedProjectId,
     currentSelectedProject: currentSelectedProject,
-    tasks: projectsState.tasks.filter(task => task.projectId === projectsState.selectedProjectId),
+    tasks: currentSelectedProjectTasks,
     addTask: handleAddTask,
     deleteTask: handleDeleteTask,
     addProject: handleAddProject,
@@ -185,7 +192,7 @@ export default function ProjectsContextProvider({ children }) {
   };
 
   return (
-    <ProjectsContext.Provider value={ctxValue}>
+    <ProjectsContext.Provider value={ctxValue} >
       {children}
     </ProjectsContext.Provider>
   );

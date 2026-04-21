@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.jsx";
+import { ProjectsContext } from "../store/projects-store.tsx";
 import NewProject from "./NewProject.jsx";
 import NoProjectSelected from "./NoProjectSelected";
 import SelectedProject from "./SelectedProject";

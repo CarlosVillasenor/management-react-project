@@ -5,7 +5,7 @@
 
 import { useContext } from 'react';
 import NewTask from './NewTask.jsx';
-import { ProjectsContext } from '../store/projects-store.jsx'
+import { ProjectsContext } from '../store/projects-store.tsx'
 
 function Tasks() {
   // Consume the tasks from the ProjectsContext
