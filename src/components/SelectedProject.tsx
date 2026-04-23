@@ -1,12 +1,28 @@
 // A component that shows the details of the selected project, including its title, description, 
 // due date, and tasks. It also allows the user to delete the project or add and delete tasks.
 
-import Tasks from "./Task";
+import Tasks from "./Task.jsx";
 import { useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.tsx";
+import { ProjectsContext } from "../store/projects-store.js";
 
 function SelectedProject() {
-  const { currentSelectedProject, deleteProject } = useContext(ProjectsContext);
+  interface Project {
+    id: string;
+    title: string;
+    description: string;
+    dueDate: string;
+  }
+
+  interface ProjectsContextValue {
+    currentSelectedProject: Project | undefined;
+    deleteProject: () => void;
+  }
+
+  const { currentSelectedProject, deleteProject }: ProjectsContextValue = useContext(ProjectsContext);
+
+  if (!currentSelectedProject) {
+    return <p className="text-stone-600">Project not found.</p>;
+  }
 
   // Format the due date.
   const formattedDate = new Date(currentSelectedProject.dueDate)

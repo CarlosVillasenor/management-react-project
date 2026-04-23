@@ -6,7 +6,8 @@
 // The Task component should directly consume the tasks
 
 import { createContext, useReducer } from "react";
-import type { Props, ProjectData, TaskData, ContextValue, ProjectsState, ProjectsAction } from "./store.types.js";
+import type { Props, Project, Task } from "../types/common.types.ts";
+import type { ContextValue, ProjectsState, ProjectsAction } from "./store.types.ts";
 
 export const ProjectsContext = createContext<ContextValue>({
   // List of all projects
@@ -59,7 +60,7 @@ function projectsReducer(state: ProjectsState, action: ProjectsAction): Projects
     case "DELETE_PROJECT":
       const updatedProjects = state.projects.filter(
         // Remove the project with the selectedProjectId
-        (project: ProjectData) => project.id !== state.selectedProjectId
+        (project: Project) => project.id !== state.selectedProjectId
       );
 
       return {
@@ -87,7 +88,7 @@ function projectsReducer(state: ProjectsState, action: ProjectsAction): Projects
     case "DELETE_TASK":
       const taskIdToDelete = action.payload.id;
       const filteredTasks = state.tasks.filter(
-        (task: TaskData) => task.id !== taskIdToDelete
+        (task: Task) => task.id !== taskIdToDelete
       );
 
       return {
@@ -133,7 +134,7 @@ export default function ProjectsContextProvider({ children }: Props): JSX.Elemen
   }
 
   // Function to handle adding a new project
-  function handleAddProject(projectData: ProjectData) {
+  function handleAddProject(projectData: Project) {
     projectsDispatch({
       identifier: 'ADD_PROJECT',
       payload: {
@@ -174,8 +175,8 @@ export default function ProjectsContextProvider({ children }: Props): JSX.Elemen
     });
   }
 
-  const currentSelectedProject = projectsState.projects.find((project: ProjectData) => project.id === projectsState.selectedProjectId);
-  const currentSelectedProjectTasks = projectsState.tasks.filter((task: TaskData) => task.projectId === projectsState.selectedProjectId);
+  const currentSelectedProject = projectsState.projects.find((project: Project) => project.id === projectsState.selectedProjectId);
+  const currentSelectedProjectTasks = projectsState.tasks.filter((task: Task) => task.projectId === projectsState.selectedProjectId);
 
   // Prepare the context value to be provided to consuming components
   const ctxValue: ContextValue = {

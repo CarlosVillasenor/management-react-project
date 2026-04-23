@@ -1,24 +1,9 @@
-export interface Props {
-  children?: React.ReactNode
-}
-
-export interface ProjectData {
-  id: string;
-  title: string;
-  description: string;
-  dueDate: string;
-}
-
-export interface TaskData {
-  id: string;
-  projectId: string;
-  text: string;
-}
+import type { Project, Task } from "../types/common.types.ts";
 
 export interface ProjectsState {
-  projects: ProjectData[];
+  projects: Project[];
   selectedProjectId: string | null | undefined;
-  tasks: TaskData[];
+  tasks: Task[];
 }
 
 export interface ProjectsAction {
@@ -27,13 +12,13 @@ export interface ProjectsAction {
 }
 
 export interface ContextValue {
-  projects: ProjectData[];
+  projects: Project[];
   selectedProjectId: string | null | undefined;
-  currentSelectedProject: ProjectData | undefined;
-  tasks: TaskData[];
+  currentSelectedProject: Project | undefined;
+  tasks: Task[];
   addTask: (text: string) => void;
   deleteTask: (taskId: string) => void;
-  addProject: (projectData: ProjectData) => void;
+  addProject: (projectData: Project) => void;
   deleteProject: () => void;
   startAddProject: () => void;
   selectProject: (projectId: string | null) => void;

@@ -1,6 +1,6 @@
 import ProjectsSidebar from "./components/ProjectsSidebar.jsx";
-import ProjectsContextProvider from "./store/projects-store.js";
-import Content from "./components/Content.jsx";
+import ProjectsContextProvider from "./store/projects-store.jsx";
+import Content from "./components/Content.js";
 
 // The App component is the root component of the application. It wraps the entire application in
 //  the ProjectsContextProvider, which provides the projects state and functions to all components
