@@ -5,11 +5,13 @@
 
 import { useContext } from 'react';
 import NewTask from './NewTask.jsx';
-import { ProjectsContext } from '../store/projects-store.tsx'
+import { ProjectsContext } from '../store/projects-store.js';
+import type { Task } from '../types/common.types.js';
 
 function Tasks() {
-  // Consume the tasks from the ProjectsContext
-  const { tasks, deleteTask } = useContext(ProjectsContext);
+  // Consume the tasks from the ProjectsContext and the deleteTask function to allow deleting tasks.
+  const { tasks, deleteTask} = useContext<React.ContextType<typeof ProjectsContext>>(ProjectsContext) as 
+  { tasks: Task[]; deleteTask: (id: string) => void };
 
   return (
     <section>

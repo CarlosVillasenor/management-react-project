@@ -72,13 +72,17 @@ function projectsReducer(state: ProjectsState, action: ProjectsAction): Projects
     case "ADD_TASK":
       const taskId = Math.random().toString();
 
-      const newTask = {
+      if (!state.selectedProjectId) {
+        return state;
+      }
+
+      const newTask: Task = {
         id: taskId,
         text: action.payload.text,
         projectId: state.selectedProjectId
       };
 
-      const updatedTasks = [...state.tasks, newTask];
+      const updatedTasks: Task[] = [...state.tasks, newTask];
 
       return {
         ...state,
@@ -87,7 +91,7 @@ function projectsReducer(state: ProjectsState, action: ProjectsAction): Projects
 
     case "DELETE_TASK":
       const taskIdToDelete = action.payload.id;
-      const filteredTasks = state.tasks.filter(
+      const filteredTasks: Task[] = state.tasks.filter(
         (task: Task) => task.id !== taskIdToDelete
       );
 

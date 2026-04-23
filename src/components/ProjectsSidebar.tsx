@@ -2,10 +2,15 @@
 // new project. It receives the list of projects, the selected project id, and the functions to 
 // select a project and start adding a new project as props.
 import { useContext } from 'react';
-import { ProjectsContext } from '../store/projects-store.tsx';
+import { ProjectsContext } from '../store/projects-store.js';
 
 function ProjectsSidebar() {
-  const { startAddProject, selectProject, projects, selectedProjectId } = useContext(ProjectsContext);
+  const { startAddProject, selectProject, projects, selectedProjectId } = useContext(ProjectsContext) as {
+    startAddProject: () => void;
+    selectProject: (id: string) => void;
+    projects: { id: string; title: string }[];
+    selectedProjectId: string | null | undefined;
+  };
 
   return (
     <aside className="w-1/3 px-8 py-16 bg-gray-600 text-stone-50 md:w-72 rounded-r-md">

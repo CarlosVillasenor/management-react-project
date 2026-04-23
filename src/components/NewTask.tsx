@@ -3,7 +3,7 @@
 
 import { useState } from 'react';
 import { useContext } from 'react';
-import { ProjectsContext } from '../store/projects-store.tsx';
+import { ProjectsContext } from '../store/projects-store.js';
 
 export default function NewTask() {
   // Get the addTask function from the ProjectsContext
@@ -11,7 +11,7 @@ export default function NewTask() {
   const [enteredTask, setEnteredTask] = useState('');
 
   // Function to handle input change
-  function handleChange(event) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     // Update the entered task state
     setEnteredTask(event.target.value);
   }

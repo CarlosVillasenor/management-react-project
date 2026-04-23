@@ -1,9 +1,9 @@
 // A component that is shown when no project is selected.
 // It shows a message and a button to create a new project.
 
-import NoProjectImage from "../assets/no-projects.png";
+import NoProjectImage from "@/assets/no-projects.png";
 import { useContext } from "react";
-import { ProjectsContext } from "../store/projects-store.tsx";
+import { ProjectsContext } from "@/store/projects-store.js";
 
 function NoProjectSelected() {
   const { startAddProject } = useContext(ProjectsContext);
