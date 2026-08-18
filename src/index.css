@@ -2,12 +2,43 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  font-family: "Segoe UI", "Inter", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #e2e8f0;
+  background: #030b1d;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body,
+#root {
+  margin: 0;
+  min-height: 100%;
+  min-width: 0;
+  background: #030b1d;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
 @layer components {
   .btn {
-    @apply px-4 py-2  rounded-md  
+    @apply rounded-md px-4 py-2;
   }
 
   .btn-primary {
-    @apply bg-stone-700 text-stone-400 hover:bg-stone-600 hover:text-stone-100
+    @apply bg-stone-700 text-stone-400 hover:bg-stone-600 hover:text-stone-100;
   }
 }

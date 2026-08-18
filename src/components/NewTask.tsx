@@ -1,24 +1,16 @@
-// A component that allows the user to create a new task.
-// It has an input field for the user to enter the task and a button to add the task.
-
 import { useState } from 'react';
 import { useContext } from 'react';
 import { ProjectsContext } from '../store/projects-store.js';
 
 export default function NewTask() {
-  // Get the addTask function from the ProjectsContext
   const { addTask } = useContext(ProjectsContext);
   const [enteredTask, setEnteredTask] = useState('');
 
-  // Function to handle input change
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    // Update the entered task state
     setEnteredTask(event.target.value);
   }
 
-  // Function to handle adding a new task
   function handleClick() {
-    // Prevent adding empty tasks
     if (enteredTask.trim() === '') {
       return;
     }
@@ -27,16 +19,24 @@ export default function NewTask() {
     setEnteredTask('');
   }
 
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    if (event.key === 'Enter') {
+      handleClick();
+    }
+  }
+
   return (
-    <div className="flex items-center gap-4">
+    <div className="mb-6 flex items-center gap-4">
       <input
         type="text"
-        className="w-64 px-2 py-1 rounded-sm bg-stone-200"
+        placeholder="Add a new task..."
+        className="flex-1 rounded-xl border border-[#4364be]/60 bg-[#0f1934]/80 px-4 py-4 text-lg text-white placeholder:text-[#7889b0] outline-none transition-all focus:border-[#7a92ff] focus:shadow-[0_0_0_1px_rgba(122,146,255,0.4)]"
         onChange={handleChange}
+        onKeyDown={handleKeyDown}
         value={enteredTask}
       />
       <button
-        className="text-stone-700 hover:text-stone-950"
+        className="rounded-xl bg-gradient-to-r from-[#4c6df6] to-[#876bf4] px-5 py-4 text-lg font-semibold text-white shadow-[0_10px_20px_rgba(89,98,255,0.35)] transition-transform hover:scale-[1.02]"
         onClick={handleClick}
       >
         Add Task

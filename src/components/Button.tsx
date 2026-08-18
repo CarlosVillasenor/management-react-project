@@ -7,11 +7,17 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   simple?: boolean;
 };
 
-function Button({simple = false, ...props}: ButtonProps) {
+function Button({ simple = false, ...props }: ButtonProps) {
   return (
     <button
-    {...props}
-    className={`${simple ? "text-gray-700" : "bg-gray-500 text-gray-50"} rounded-md px-6 py-1 font-bold`}>
+      {...props}
+      className={[
+        'rounded-xl px-5 py-2.5 text-base font-semibold transition-all',
+        simple
+          ? 'bg-transparent text-[#dfe7ff]/80 hover:text-white'
+          : 'bg-gradient-to-r from-[#4a6cf7] via-[#5a72f9] to-[#7b69f5] text-white shadow-[0_0_18px_rgba(91,110,255,0.35)] hover:brightness-110'
+      ].join(' ')}
+    >
       {props.children}
     </button>
   );
