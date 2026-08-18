@@ -24,7 +24,8 @@ export const ProjectsContext = createContext<ContextValue>({
   addProject: () => { },
   deleteProject: () => { },
   startAddProject: () => { },
-  selectProject: () => { }
+  stopAddProject: () => { },
+  selectProject: () => { },
 });
 
 // Reducer function to manage the state of projects and tasks
@@ -36,6 +37,12 @@ function projectsReducer(state: ProjectsState, action: ProjectsAction): Projects
       return {
         ...state,
         selectedProjectId: null
+      };
+
+    case "STOP_ADD_PROJECT":
+      return {
+        ...state,
+        selectedProjectId: undefined
       };
 
     case "SELECT_PROJECT":
@@ -120,9 +127,17 @@ export default function ProjectsContextProvider({ children }: Props): JSX.Elemen
   );
 
   // Function to handle starting to add a new project
-  function handleStarAddProject() {
+  function handleStartAddProject(): void {
     projectsDispatch({
       identifier: 'START_ADD_PROJECT',
+      payload: {}
+    });
+  }
+
+  // Function to handle stopping the add project process
+  function handleStopAddProject(): void {
+    projectsDispatch({
+      identifier: 'STOP_ADD_PROJECT',
       payload: {}
     });
   }
@@ -192,7 +207,8 @@ export default function ProjectsContextProvider({ children }: Props): JSX.Elemen
     deleteTask: handleDeleteTask,
     addProject: handleAddProject,
     deleteProject: handleDeleteProject,
-    startAddProject: handleStarAddProject,
+    startAddProject: handleStartAddProject,
+    stopAddProject: handleStopAddProject,
     selectProject: handleSelectProject
   };
 

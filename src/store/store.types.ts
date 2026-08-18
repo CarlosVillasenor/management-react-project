@@ -21,5 +21,6 @@ export interface ContextValue {
   addProject: (projectData: Project) => void;
   deleteProject: () => void;
   startAddProject: () => void;
+  stopAddProject: () => void;
   selectProject: (projectId: string | null) => void;
 }

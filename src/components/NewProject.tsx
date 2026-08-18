@@ -12,7 +12,7 @@ function NewProject() {
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const dueDateRef = useRef<HTMLInputElement>(null);
   const modalRef = useRef<ModalHandle>(null);
-  const { addProject } = useContext(ProjectsContext);
+  const { addProject, stopAddProject } = useContext(ProjectsContext);
 
   function handleSaveNewProject(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
@@ -39,6 +39,16 @@ function NewProject() {
     addProject(newProject);
   }
 
+  function handleCancelProject() {
+    // Clear the input fields.
+    if (titleRef.current) titleRef.current.value = '';
+    if (descriptionRef.current) descriptionRef.current.value = '';
+    if (dueDateRef.current) dueDateRef.current.value = '';
+
+    // Stop adding the project.
+    stopAddProject();
+  }
+
   return (
     <>
       <Modal ref={modalRef} buttonCaption="Close">
@@ -62,6 +72,7 @@ function NewProject() {
             <button
               type="button"
               aria-label="Close"
+              onClick={handleCancelProject}
               className="flex h-8 w-8 items-center justify-center rounded-md text-xl font-light text-[#dfe7ff]/80 transition-colors hover:text-white"
             >
               ×
@@ -100,7 +111,7 @@ function NewProject() {
           </div>
 
           <div className="mt-6 flex items-center justify-end gap-4">
-            <Button simple type="button">Cancel</Button>
+            <Button simple type="button" onClick={handleCancelProject}>Cancel</Button>
             <Button type="button" onClick={handleSaveNewProject}>Save</Button>
           </div>
         </div>
